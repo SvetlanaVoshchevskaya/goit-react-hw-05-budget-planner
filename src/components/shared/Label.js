@@ -1,0 +1,17 @@
+import React from 'react';
+import styled from 'styled-components';
+
+const StyledLabel = styled.label`
+  display: inline-block;
+  font-size: 20px;
+  color: #171718;
+  cursor: pointer;
+  ${props => props.customStyles}
+`;
+
+// eslint-disable-next-line react/prop-types
+const Label = ({ children, customStyles }) => (
+  <StyledLabel customStyles={customStyles}>{children}</StyledLabel>
+);
+
+export default Label;
