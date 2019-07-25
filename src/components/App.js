@@ -20,11 +20,7 @@ const Container = styled.div`
 `;
 
 class App extends Component {
-  removeExpense = id => {
-    this.setState(state => ({
-      expenses: state.expenses.filter(expense => expense.id !== id),
-    }));
-  };
+  state = {};
 
   render() {
     const { expenses } = this.props;
