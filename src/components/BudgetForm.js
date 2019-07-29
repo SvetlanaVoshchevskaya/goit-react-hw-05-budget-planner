@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from 'prop-types';
 import { addSummBudget } from '../redux/BudgetAction';
 import Form from './shared/Form';
@@ -22,7 +24,12 @@ class BudgetForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-
+    if (this.state.budget === '' || this.state.budget < 0) {
+      toast.error('Введите  вполе budget  сумму больше 0', {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
     this.props.addSummBudget(this.state.budget);
 
     this.setState({ budget: '' });
@@ -36,8 +43,8 @@ class BudgetForm extends Component {
           Enter your total budget
           <Input type="number" value={budget} onChange={this.handleChange} />
         </Label>
-
         <Button label="Save" type="submit" />
+        <ToastContainer autoClose={2000} />
       </Form>
     );
   }

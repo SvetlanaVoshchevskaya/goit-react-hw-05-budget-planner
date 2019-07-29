@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from 'prop-types';
 import { addExpense } from '../redux/BudgetAction';
 import Form from './shared/Form';
@@ -25,7 +27,18 @@ class ExpenseForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-
+    if (this.state.amount === '' || this.state.amount < 0) {
+      toast.error('Введена сумма меньше 0', {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
+    if (this.state.name === '') {
+      toast.error('Незаполнено поле expense name ', {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
     this.props.addExpense({
       ...this.state,
     });
@@ -55,8 +68,8 @@ class ExpenseForm extends Component {
             onChange={this.handleChange}
           />
         </Label>
-
         <Button label="Add" type="submit" />
+        <ToastContainer autoClose={2000} />
       </Form>
     );
   }
